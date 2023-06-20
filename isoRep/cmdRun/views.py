@@ -2,23 +2,18 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import os
 import subprocess
-from datetime import datetime
-from django.conf import settings as Settings
+import datetime
+from django.conf import settings
 
-def get_date_now():
-    """Return time with speacial format for logging"""
-    return datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
+def run_command(command,name):
+    creationTime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+
+    if not os.path.exists(Settings.LOGS_DIR):
+        os.makedirs(Settings.LOGS_DIR)
+
+    log_file = os.path.join(Settings.LOGS_DIR, f"{creationTime}-{name}.log")
 
 
-def run_command(command):
-    creationTime = get_date_now()
-    
-    log_dir = Settings.DATA_FOLDER
-
-    if not os.path.exists(log_dir):
-        os.makedirs(log_dir)
-
-    log_file = os.path.join(log_dir, f'{creationTime}_{command.replace(" ", "_")}.log')
 
     process = subprocess.run(
         command,
@@ -38,8 +33,8 @@ def run_command(command):
 def execute_command(request):
     if request.method == 'POST':
         command = request.POST.get('command')
-        # name eklenicek
-        status, log_file = run_command(command)
+        name = command
+        status, log_file = run_command(command,name)
         log_content = ""
 
         if os.path.isfile(log_file):
