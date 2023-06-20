@@ -3,7 +3,7 @@ from django.http import HttpResponse
 import os
 import subprocess
 import datetime
-from django.conf import settings
+from django.conf import settings as Settings
 
 def run_command(command,name):
     creationTime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -12,8 +12,6 @@ def run_command(command,name):
         os.makedirs(Settings.LOGS_DIR)
 
     log_file = os.path.join(Settings.LOGS_DIR, f"{creationTime}-{name}.log")
-
-
 
     process = subprocess.run(
         command,
