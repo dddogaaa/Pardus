@@ -3,15 +3,20 @@ from django.http import HttpResponse
 import os
 import subprocess
 import datetime
-from django.conf import settings
+from django.conf import settings as Settings
 
-def run_command(command):
+
+
+
+def run_command(command,name):
     creationTime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    log_dir = 'logs'
-    if not os.path.exists(log_dir):
-        os.makedirs(log_dir)
 
-    log_file = os.path.join(log_dir, f'{creationTime}_{command.replace(" ", "_")}.log')
+    if not os.path.exists(Settings.LOGS_DIR):
+        os.makedirs(Settings.LOGS_DIR)
+
+    log_file = os.path.join(Settings.LOGS_DIR, f"{creationTime}-{name}.log")
+
+
 
     process = subprocess.run(
         command,
@@ -31,8 +36,8 @@ def run_command(command):
 def execute_command(request):
     if request.method == 'POST':
         command = request.POST.get('command')
-        # name eklenicek
-        status, log_file = run_command(command)
+        name = command
+        status, log_file = run_command(command,name)
         log_content = ""
 
         if os.path.isfile(log_file):

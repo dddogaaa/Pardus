@@ -25,7 +25,13 @@ SECRET_KEY = 'django-insecure-qay_q%@j@+oucw%l=b16_(ciw%xk60&g0+g-)94z&@cr*x6%uz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# Directory
+# İsteğe bağlı dizin tırnaklar arasına yazılır.
+LOGS_DIR = '/home/logs'
+
+
+ALLOWED_HOSTS = [
+]
 
 # Application definition
 
@@ -80,7 +86,7 @@ DATABASES = {
     }
 }
 
-# LOGS_DIR = '/var/log/'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
