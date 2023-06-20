@@ -1,3 +1,5 @@
+<!-- 
+FOR ALL COMMANDS EXECUTION
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +17,35 @@
     </form>
 
     <hr>
+
+</body>
+</html> -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Command Execution</title>
+</head>
+<body>
+    <h1>Command Execution</h1>
+
+    <form id="commandForm" method="post" action="{% url 'execute_command' %}">
+        {% csrf_token %}
+        <input type="hidden" id="command" name="command">
+    </form>
+
+    <hr>
+
+    <h2>Predefined Commands:</h2>
+    <button onclick="setCommand('ls')">List Files</button>
+    <button onclick="setCommand('pwd')">Current Directory</button>
+    <button onclick="setCommand('echo Hello')">Echo Hello</button>
+
+    <script>
+        function setCommand(command) {
+            document.getElementById('command').value = command;
+            document.getElementById('commandForm').submit();
+        }
+    </script>
 
 </body>
 </html>

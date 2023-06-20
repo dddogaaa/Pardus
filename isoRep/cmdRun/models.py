@@ -1,5 +1,5 @@
 # Database import
-from django.db import models
+
 from django import db
 
 # Settings import

@@ -80,7 +80,7 @@ DATABASES = {
     }
 }
 
-# LOGS_DIR = '/var/log/'
+DATA_FOLDER = ''
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

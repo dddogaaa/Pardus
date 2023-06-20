@@ -2,12 +2,19 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import os
 import subprocess
-import datetime
-from django.conf import settings
+from datetime import datetime
+from django.conf import settings as Settings
+
+def get_date_now():
+    """Return time with speacial format for logging"""
+    return datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
+
 
 def run_command(command):
-    creationTime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    creationTime = get_date_now()
+    
     log_dir = 'logs'
+
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
 
