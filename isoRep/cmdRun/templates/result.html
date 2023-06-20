@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Command Execution Result</title>
+</head>
+<body>
+    <h1>Command Execution Result</h1>
+    <hr>
+
+    <h2>Status: {{ status }}</h2>
+
+    {% if log_file %}
+        <h2>Log File: <a href="{% url 'serve_log_file' log_file %}">{{ log_file }}</a></h2>
+    {% endif %}
+
+    <hr>
+
+    {% if log_content %}
+    <h3>Command Output:</h3>
+    <pre>{{ log_content }}</pre>
+    {% endif %}
+
+    <!-- <a href="index.html">Back to Execute Command</a> -->
+</body>
+</html>

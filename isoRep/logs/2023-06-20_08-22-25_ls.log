@@ -1,0 +1,5 @@
+cmdRun
+db.sqlite3
+isoRep
+logs
+manage.py

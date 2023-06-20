@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Command Execution</title>
+</head>
+<body>
+    <h1>Command Execution</h1>
+    <hr>
+
+    <form method="post" action="{% url 'execute_command' %}">
+        {% csrf_token %}
+        <label for="command">Enter a command:</label>
+        <input type="text" id="command" name="command">
+        <button type="submit">Execute</button>
+    </form>
+
+    <hr>
+
+</body>
+</html>
