@@ -80,7 +80,7 @@ DATABASES = {
     }
 }
 
-DATA_FOLDER = ''
+DATA_FOLDER = '/home/doga2/Desktop/logs/'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

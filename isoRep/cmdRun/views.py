@@ -13,7 +13,7 @@ def get_date_now():
 def run_command(command):
     creationTime = get_date_now()
     
-    log_dir = 'logs'
+    log_dir = Settings.DATA_FOLDER
 
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
