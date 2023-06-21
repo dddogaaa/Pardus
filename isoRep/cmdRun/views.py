@@ -4,14 +4,17 @@ import os
 import subprocess
 import datetime
 from django.conf import settings as Settings
+from .models import CommandExecution
+from django.utils import timezone
 
-def run_command(command,name):
+
+def run_command(command):
     creationTime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
     if not os.path.exists(Settings.LOGS_DIR):
         os.makedirs(Settings.LOGS_DIR)
 
-    log_file = os.path.join(Settings.LOGS_DIR, f"{creationTime}-{name}.log")
+    log_file = os.path.join(Settings.LOGS_DIR, f"{creationTime}.log")
 
     process = subprocess.run(
         command,
@@ -31,15 +34,24 @@ def run_command(command,name):
 def execute_command(request):
     if request.method == 'POST':
         command = request.POST.get('command')
-        name = command
-        status, log_file = run_command(command,name)
         log_content = ""
+
+        start_time = timezone.now()
+        
+        status, log_file = run_command(command)
+
+        end_time = timezone.now()
+
 
         if os.path.isfile(log_file):
             with open(log_file, 'r') as file:
                 log_content = file.read()
 
-        return render(request, 'result.html', {'command': command, 'log_file': log_file, 'log_content': log_content, 'status': status})
+
+        execution = CommandExecution(command=command, status=status, log_file=log_file, start_execution=start_time,end_execution=end_time)
+        execution.save()
+
+        return render(request, 'result.html', {'command': command, 'log_file': log_file, 'log_content': log_content, 'status': status, 'duration_seconds': execution.duration})
 
     return render(request, 'index.html')
 
