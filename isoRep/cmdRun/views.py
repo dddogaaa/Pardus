@@ -15,7 +15,7 @@ def run_command(command):
     if not os.path.exists(logs_dir):
         os.makedirs(logs_dir)
 
-    log_file = os.path.join(logs_dir, f"{creationTime}-{name}.log")
+    log_file = os.path.join(logs_dir, f"{creationTime}-{command}.log")
 
     process = subprocess.run(
         command,
