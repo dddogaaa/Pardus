@@ -80,7 +80,7 @@ def list_logs(request):
     logs.sort(key=lambda x: os.path.getmtime(os.path.join(logs_dir,x)))
 
     context = {'logs': logs}
-    return render(request, 'index.html', context)
+    return render(request, 'lists.html', context)
 
 
 
