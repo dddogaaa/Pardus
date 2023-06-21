@@ -10,11 +10,12 @@ from django.utils import timezone
 
 def run_command(command):
     creationTime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    logs_dir = Settings.LOGS_DIR
 
-    if not os.path.exists(Settings.LOGS_DIR):
-        os.makedirs(Settings.LOGS_DIR)
+    if not os.path.exists(logs_dir):
+        os.makedirs(logs_dir)
 
-    log_file = os.path.join(Settings.LOGS_DIR, f"{creationTime}.log")
+    log_file = os.path.join(logs_dir, f"{creationTime}-{name}.log")
 
     process = subprocess.run(
         command,
@@ -30,6 +31,7 @@ def run_command(command):
     status = process.returncode
 
     return status, log_file
+
 
 def execute_command(request):
     if request.method == 'POST':
@@ -55,6 +57,7 @@ def execute_command(request):
 
     return render(request, 'index.html')
 
+
 def serve_log_file(request, log_file_name):
     try:
         with open(log_file_name, 'r') as file:
@@ -69,3 +72,17 @@ def serve_log_file(request, log_file_name):
 
     except FileNotFoundError:
         return HttpResponse(f'Log file {log_file_name} not found.', status=404)
+
+def list_logs(request):
+
+    logs_dir = Settings.LOGS_DIR
+    logs = os.listdir(logs_dir)
+    logs.sort(key=lambda x: os.path.getmtime(os.path.join(logs_dir,x)))
+
+    context = {'logs': logs}
+    return render(request, 'index.html', context)
+
+
+
+
+
