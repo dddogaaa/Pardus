@@ -27,7 +27,7 @@ DEBUG = True
 
 # Directory
 # İsteğe bağlı dizin tırnaklar arasına yazılır.
-LOGS_DIR = '/home/doga2/Destop/logs'
+LOGS_DIR = ' '
 
 
 ALLOWED_HOSTS = [
